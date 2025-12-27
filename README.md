@@ -3,7 +3,7 @@
 A simple CHIP-8 emulator/interpreter written in C++ 17, using the SDL3 library for graphics and input.
 
 ## Table of Contents
-- [Dependencies](#Dependencies)
+* [Dependencies](#Dependencies)
 * [Building](#Building)
 * [Running](#Running)
 * [References](#References)

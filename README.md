@@ -46,5 +46,5 @@ ROM files for the CHIP-8 can be found [here](https://github.com/dmatlack/chip8/t
 **Space Invaders [David Winter].ch8**<br>
 ![Space Invaders [David Winter].ch8](screenshots/2025-12-25-195735_640x320_scrot.png)<br>
 
-**Tetris [Fran Dachille, 1991**<br>
+**Tetris [Fran Dachille, 1991].ch8**<br>
 ![Tetris [Fran Dachille, 1991].ch8](screenshots/2025-12-26-211504_640x320_scrot.png)<br>

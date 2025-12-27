@@ -126,5 +126,5 @@ public:
 	//Initializer mapping arguments to bytes in sprite[]
 	Character(Byte a, Byte b, Byte c, Byte d, Byte e) : sprite{ a, b, c, d, e } {}
 
-	Byte sprite[5]; //Array of 5 bytes to store data of a single character
+	Byte sprite[FONTSET_BYTES_PER_GLYPH]; //Array of 5 bytes to store data of a single character
 };

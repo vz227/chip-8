@@ -121,7 +121,7 @@ void Chip8::LoadROM(char* const filePath)
 void Chip8::LoadFont()
 {
 	//Initialize fontSet
-	Character fontSet[16]
+	Character fontSet[FONTSET_GLYPH_COUNT]
 	{
 		{0xF0, 0x90, 0x90, 0x90, 0xF0}, // 0
 		{0x20, 0x60, 0x20, 0x20, 0x70}, // 1

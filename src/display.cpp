@@ -43,18 +43,18 @@ Display::Display(const char* windowTitle, int windowWidth, int windowHeight, int
 
 Display::~Display()
 {
-	SDL_DestroyTexture(texture);								//
-	SDL_DestroyRenderer(renderer);								//
-	SDL_DestroyWindow(window);									//
-	SDL_Quit();													//
+	SDL_DestroyTexture(texture);
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	SDL_Quit();
 }
 
 void Display::Draw(const void* buffer, int pitch)
 {
-	SDL_UpdateTexture(texture, NULL, buffer, pitch);			//
-	SDL_RenderClear(renderer);									//
-	SDL_RenderTexture(renderer, texture, nullptr, nullptr);		//
-	SDL_RenderPresent(renderer);								//
+	SDL_UpdateTexture(texture, NULL, buffer, pitch);
+	SDL_RenderClear(renderer);
+	SDL_RenderTexture(renderer, texture, nullptr, nullptr);
+	SDL_RenderPresent(renderer);
 }
 
 void Display::ProcessInput(uint16_t &keypad, bool& quit)

@@ -27,7 +27,7 @@ Chip8::Chip8()
 	table[0xF] = &Chip8::TableF;
 
 	//Assign *OP_NULL() to all addresses in table0[], table8[] & tableE[]
-	for (int i{0}; i <= 0xE; ++i)
+	for (std::size_t i{0}; i <= 0xE; ++i)
 	{
 		table0[i] = &Chip8::OP_NULL;
 		table8[i] = &Chip8::OP_NULL;
@@ -35,7 +35,7 @@ Chip8::Chip8()
 	}
 
 	//Assign *OP_NULL() to all addresses in tableF[]
-	for (int j{0}; j <= 0x65; ++j)
+	for (std::size_t j{0}; j <= 0x65; ++j)
 	{
 		tableF[j] = &Chip8::OP_NULL;
 	}
@@ -102,9 +102,9 @@ void Chip8::LoadROM(char* const filePath)
 		file.close();
 
 		//Write buffer into memory starting at 0x200
-		for (long i{0}; i < static_cast<long>(size); ++i)
+		for (std::size_t i{0}; i < size; ++i)
 		{
-			memory[ROM_START_ADDRESS + i] = buffer[i];
+			memory[ROM_START_ADDRESS + static_cast<Word>(i)] = buffer[i];
 		}
 
 		//Free memory
@@ -142,11 +142,11 @@ void Chip8::LoadFont()
 	};
 
 	//Store fontSet starting at address 0x50 in memory as per the technical reference
-	for (unsigned int i{0}; i < 16; ++i)
+	for (std::size_t i{0}; i < FONTSET_GLYPH_COUNT; ++i)
 	{
-		for (unsigned int j{0}; j < 5; ++j)
+		for (std::size_t j{0}; j < FONTSET_BYTES_PER_GLYPH; ++j)
 		{
-			memory[FONTSET_START_ADDRESS + (i * 5) + j] = fontSet[i].sprite[j];
+			memory[FONTSET_START_ADDRESS + static_cast<Word>((i * FONTSET_BYTES_PER_GLYPH) + j)] = fontSet[i].sprite[j];
 		}
 	}
 }

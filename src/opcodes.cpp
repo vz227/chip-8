@@ -1,5 +1,4 @@
 #include "chip8.h"
-#include <cstring>
 
 void Chip8::OP_00E0()
 {
@@ -148,16 +147,14 @@ void Chip8::OP_Bnnn()
 
 void Chip8::OP_Cxkk()
 {
-	registers[(opcode & 0x0F00) >> 8u] = static_cast<Byte>(rand() % 256) & (opcode & 0x00FF);
-
 	//Generate random number from 0 to 255 & AND it with the value kk. Store result in register Vx
-	//registers[(opcode & 0x0F00) >> 8u] = //randnum// & (opcode & 0x00FFu);
+	registers[(opcode & 0x0F00) >> 8u] = static_cast<Byte>(rand() % 256) & (opcode & 0x00FF);
 }
 
 void Chip8::OP_Dxyn()
 {
 	//Save the amount of bytes to be read from memory, i.e. the height of the sprite
-	int byte_count = opcode & 0x000F;
+	std::size_t byte_count = opcode & 0x000F;
 
 	//Save current coordinates making sure the coordinates wrap around if they're out of bounds
 	Byte xPos = registers[(opcode & 0x0F00) >> 8u] % VIDEO_WIDTH;
@@ -167,19 +164,19 @@ void Chip8::OP_Dxyn()
 	registers[0xF] = 0;
 
 	//Iterate through byte count, i.e. each row of the sprite
-	for (int byte{0}; byte < byte_count; ++byte)
+	for (std::size_t row{0}; row < byte_count; ++row)
 	{
 		//Save current byte/row of the sprite
-		Byte current_byte = memory[index + byte];
+		Byte current_byte = memory[index + static_cast<Word>(row)];
 
-		//Iterate through bits of current row/byte
-		for (int bit{0}; bit < 8; ++bit)
+		//Iterate through bits of current row/byte, i.e. each column of the row
+		for (std::size_t column{0}; column < 8; ++column)
 		{
 			//Save current pixel of current row
-			Byte current_pixel = current_byte & (0x80u >> bit);
+			Byte current_pixel = current_byte & (0x80u >> column);
 
 			//Save pointer to current screen pixel (as a DWord for convenience with SDL)
-			DWord* screen_pixel = &videoBuffer[((yPos + byte) % VIDEO_HEIGHT) * VIDEO_WIDTH + ((xPos + bit) % VIDEO_WIDTH)];
+			DWord* screen_pixel = &videoBuffer[((yPos + row) % VIDEO_HEIGHT) * VIDEO_WIDTH + ((xPos + column) % VIDEO_WIDTH)];
 
 			if (current_pixel)
 			{
@@ -277,18 +274,18 @@ void Chip8::OP_Fx33()
 void Chip8::OP_Fx55()
 {
 	//Store registers V0 through Vx in memory starting at location I
-	for (int i{0}; i <= ((opcode & 0x0F00) >> 8u); ++i)
+	for (std::size_t i{0}; i <= ((opcode & 0x0F00) >> 8u); ++i)
 	{
-		memory[index + i] = registers[i];
+		memory[index + static_cast<Word>(i)] = registers[i];
 	}
 }
 
 void Chip8::OP_Fx65()
 {
 	//Read memory starting from location I into registers V0 through Vx
-	for (int i{0}; i <= ((opcode & 0x0F00) >> 8u); ++i)
+	for (std::size_t i{0}; i <= ((opcode & 0x0F00) >> 8u); ++i)
 	{
-		registers[i] = memory[index + i];
+		registers[i] = memory[index + static_cast<Word>(i)];
 	}
 }
 

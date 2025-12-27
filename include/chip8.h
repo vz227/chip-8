@@ -1,7 +1,9 @@
 #pragma once
 
 //Include headers
-#include <stdint.h>
+#include <cstdint>
+#include <cstddef>
+#include <cstring>
 #include <fstream>
 #include <random>
 
@@ -11,13 +13,17 @@ typedef uint16_t Word;
 typedef uint32_t DWord;
 
 //Address constants
-const unsigned int MEMORY_SIZE = 0x1000;
-const unsigned int ROM_START_ADDRESS = 0x200;
-const unsigned int FONTSET_START_ADDRESS = 0x50;
+constexpr Word MEMORY_SIZE = 0x1000;
+constexpr Word ROM_START_ADDRESS = 0x200;
+constexpr Word FONTSET_START_ADDRESS = 0x50;
 
 //Video constants
-const unsigned int VIDEO_WIDTH = 64;
-const unsigned int VIDEO_HEIGHT = 32;
+constexpr std::size_t VIDEO_WIDTH = 64;
+constexpr std::size_t  VIDEO_HEIGHT = 32;
+
+//Font constants
+constexpr std::size_t FONTSET_GLYPH_COUNT = 16;
+constexpr std::size_t FONTSET_BYTES_PER_GLYPH = 5;
 
 class Chip8
 {
